@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+/*import { Component } from '@angular/core';
 import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -44,4 +44,4 @@ export class RecentSalesWidget {
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => (this.products = data));
     }
-}
+}*/

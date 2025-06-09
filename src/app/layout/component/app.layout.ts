@@ -2,15 +2,15 @@ import { Component, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
-import { AppTopbar } from './app.topbar';
+//import { AppTopbar } from './app.topbar';
 import { AppSidebar } from './app.sidebar';
 import { AppFooter } from './app.footer';
-import { LayoutService } from '../service/layout.service';
+//import { LayoutService } from '../service/layout.service';
 
-@Component({
+/*@Component({
     selector: 'app-layout',
     standalone: true,
-    imports: [CommonModule, AppTopbar, AppSidebar, RouterModule, AppFooter],
+    //imports: [CommonModule, AppTopbar, AppSidebar, RouterModule, AppFooter],
     template: `<div class="layout-wrapper" [ngClass]="containerClass">
         <app-topbar></app-topbar>
         <app-sidebar></app-sidebar>
@@ -24,23 +24,23 @@ import { LayoutService } from '../service/layout.service';
     </div> `
 })
 export class AppLayout {
-    overlayMenuOpenSubscription: Subscription;
+    //overlayMenuOpenSubscription: Subscription;
 
     menuOutsideClickListener: any;
 
     @ViewChild(AppSidebar) appSidebar!: AppSidebar;
 
-    @ViewChild(AppTopbar) appTopBar!: AppTopbar;
+    //@ViewChild(AppTopbar) appTopBar!: AppTopbar;
 
     constructor(
-        public layoutService: LayoutService,
+        //public layoutService: LayoutService,
         public renderer: Renderer2,
         public router: Router
     ) {
-        this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
-            if (!this.menuOutsideClickListener) {
+        //this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
+            /*if (!this.menuOutsideClickListener) {
                 this.menuOutsideClickListener = this.renderer.listen('document', 'click', (event) => {
-                    if (this.isOutsideClicked(event)) {
+                    /*if (this.isOutsideClicked(event)) {
                         this.hideMenu();
                     }
                 });
@@ -108,4 +108,4 @@ export class AppLayout {
             this.menuOutsideClickListener();
         }
     }
-}
+}*/

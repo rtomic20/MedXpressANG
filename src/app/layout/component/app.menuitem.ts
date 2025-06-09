@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
 import { MenuItem } from 'primeng/api';
-import { LayoutService } from '../service/layout.service';
+//import { LayoutService } from '../service/layout.service';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -67,7 +67,7 @@ import { LayoutService } from '../service/layout.service';
             transition('collapsed <=> expanded', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
         ])
     ],
-    providers: [LayoutService]
+    //providers: [LayoutService]
 })
 export class AppMenuitem {
     @Input() item!: MenuItem;
@@ -80,17 +80,17 @@ export class AppMenuitem {
 
     active = false;
 
-    menuSourceSubscription: Subscription;
+    //menuSourceSubscription: Subscription;
 
-    menuResetSubscription: Subscription;
+    //menuResetSubscription: Subscription;
 
     key: string = '';
 
     constructor(
         public router: Router,
-        private layoutService: LayoutService
+        //private layoutService: LayoutService
     ) {
-        this.menuSourceSubscription = this.layoutService.menuSource$.subscribe((value) => {
+        /*this.menuSourceSubscription = this.layoutService.menuSource$.subscribe((value) => {
             Promise.resolve(null).then(() => {
                 if (value.routeEvent) {
                     this.active = value.key === this.key || value.key.startsWith(this.key + '-') ? true : false;
@@ -104,7 +104,7 @@ export class AppMenuitem {
 
         this.menuResetSubscription = this.layoutService.resetSource$.subscribe(() => {
             this.active = false;
-        });
+        });*/
 
         this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((params) => {
             if (this.item.routerLink) {
@@ -125,7 +125,7 @@ export class AppMenuitem {
         let activeRoute = this.router.isActive(this.item.routerLink[0], { paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' });
 
         if (activeRoute) {
-            this.layoutService.onMenuStateChange({ key: this.key, routeEvent: true });
+            //this.layoutService.onMenuStateChange({ key: this.key, routeEvent: true });
         }
     }
 
@@ -146,7 +146,7 @@ export class AppMenuitem {
             this.active = !this.active;
         }
 
-        this.layoutService.onMenuStateChange({ key: this.key });
+        //this.layoutService.onMenuStateChange({ key: this.key });
     }
 
     get submenuAnimation() {
@@ -159,12 +159,12 @@ export class AppMenuitem {
     }
 
     ngOnDestroy() {
-        if (this.menuSourceSubscription) {
+        /*if (this.menuSourceSubscription) {
             this.menuSourceSubscription.unsubscribe();
         }
 
         if (this.menuResetSubscription) {
             this.menuResetSubscription.unsubscribe();
-        }
+        }*/
     }
 }
