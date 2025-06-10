@@ -6,7 +6,7 @@ import { environment } from '../../environment/environment';
   providedIn: 'root'
 })
 export class AmbulantaService {
-  private baseUrl = `${environment.apiUrl}/ambulante`;
+  private baseUrl = `${environment.apiUrl}/infirmaries`;
 
   constructor(private http: HttpClient) {}
 
@@ -25,6 +25,7 @@ export class AmbulantaService {
   update(id: number, data: any) {
     return this.http.put(`${this.baseUrl}/${id}`, data);
   }
+  
 
   delete(id: number) {
     return this.http.delete(`${this.baseUrl}/${id}`);
