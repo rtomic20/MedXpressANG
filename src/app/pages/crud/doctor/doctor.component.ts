@@ -6,6 +6,7 @@ import { DoktorService } from '../../../layout/service/doctor.service';
   standalone: true,
   selector: 'app-doctor',
   templateUrl: './doctor.component.html',
+  styleUrls: ['./doctor.scss'],
   imports: [CommonModule],
 })
 export class DoctorComponent implements OnInit {
@@ -14,8 +15,18 @@ export class DoctorComponent implements OnInit {
   constructor(private doktorService: DoktorService) {}
 
   ngOnInit(): void {
-    this.doktorService.getAll().subscribe((data: any) => {
-      this.doctors = data;
-    });
-  }
+  this.doktorService.getAll().subscribe((data: any) => {
+    this.doctors = data.map((d: any) => ({
+      ...d,
+      showNurses: false
+    }));
+  });
 }
+
+
+toggleNurses(doctor: any) {
+  doctor.showNurses = !doctor.showNurses;
+}
+
+}
+

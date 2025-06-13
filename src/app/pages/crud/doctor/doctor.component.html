@@ -1,17 +1,25 @@
-<h2>Popis doktora</h2>
-<table>
+<h2 class="naslov">Popis doktora i njihovih medicinskih sestara</h2>
+
+<table class="doctor-table">
   <thead>
     <tr>
-      <th>Ime</th>
-      <th>Prezime</th>
-      <th>Email</th>
+      <th>Doktor</th>
+      <th>Medicinske sestre</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let doctor of doctors">
-      <td>{{ doctor.korisnik.ime }}</td>
-      <td>{{ doctor.korisnik.prezime }}</td>
-      <td>{{ doctor.korisnik.email }}</td>
+      <td>{{ doctor.doktor_ime }}</td>
+      <td>
+        <button (click)="toggleNurses(doctor)">
+          {{ doctor.showNurses ? 'Sakrij' : 'Prikaži' }}
+        </button>
+        <ul *ngIf="doctor.showNurses" class="nurse-list">
+          <li *ngFor="let sestra of doctor.medicinske_sestre">
+            {{ sestra }}
+          </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>

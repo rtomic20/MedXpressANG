@@ -1,0 +1,68 @@
+.naslov {
+  text-align: center;
+  margin: 40px 0 20px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.doctor-table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+
+  th, td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+
+  th {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f4f7fa;
+  }
+
+  button {
+    background-color: #2ecc71;
+    border: none;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #27ae60;
+    }
+  }
+
+  .nurse-list {
+    margin-top: 10px;
+    padding-left: 0;
+    list-style: none;
+
+    li {
+      margin: 6px 0;
+      background-color: #ecf0f1;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+  }
+}
