@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DoktorService } from '../../../layout/service/doctor.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-doctor',
   templateUrl: './doctor.component.html',
   styleUrls: ['./doctor.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
 })
 export class DoctorComponent implements OnInit {
   doctors: any[] = [];
@@ -24,11 +25,10 @@ ngOnInit(): void {
   });
 }
 
-
-
 toggleNurses(doctor: any) {
   doctor.showNurses = !doctor.showNurses;
 }
-
 }
+
+
 

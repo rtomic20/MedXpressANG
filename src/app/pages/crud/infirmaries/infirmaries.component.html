@@ -1,4 +1,33 @@
 <form (ngSubmit)="dodajAmbulantu()" #ambulantaForm="ngForm" class="form-dodaj">
+    <div class="ambulanta-container">
+        <h2>Popis ambulanti</h2>
+
+        <table *ngIf="infirmarie.length > 0; else noData" class="infirmary-table">
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Doktor</th>
+                    <th>Medicinska sestra</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let amb of infirmarie">
+                    <td>{{ amb.Infirmary_name }}</td>
+                    <td>{{ amb.doktor_ime }}</td>
+                    <td>{{ amb.sestra_ime }}</td>
+                    <td>{{ amb.lat }}</td>
+                    <td>{{ amb.long }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ng-template #noData>
+            <p>Trenutno nema podataka za prikazati.</p>
+        </ng-template>
+    </div>
+
     <input type="text" name="Infirmary_name" [(ngModel)]="novaAmbulanta.Infirmary_name" placeholder="Naziv ambulante" required />
 
     <input type="number" step="0.0001" name="lat" [(ngModel)]="novaAmbulanta.lat" placeholder="Latitude" required />
@@ -12,20 +41,5 @@
             {{ doc.doktor_ime }}
         </option>
     </select>
-
-    <p *ngIf="novaAmbulanta.sestra_ime">
-        Automatski dodana medicinska sestra: <strong>{{ novaAmbulanta.sestra_ime }}</strong>
-    </p>
-
-    <p *ngIf="novaAmbulanta.medicinska_sestra">
-        Automatski dodana sestra: <strong>{{ novaAmbulanta.sestra_ime }}</strong>
-    </p>
-
-    <p *ngIf="novaAmbulanta.medicinska_sestra">
-        Automatski dodana medicinska sestra: <strong>{{ novaAmbulanta.medicinska_sestra }}</strong>
-    </p>
-
-    <p *ngIf="novaAmbulanta.medicinska_sestra">Automatski dodana medicinska sestra.</p>
-
     <button type="submit">Spremi</button>
 </form>

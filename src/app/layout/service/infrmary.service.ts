@@ -19,7 +19,7 @@ export class AmbulantaService {
     }
 
     create(data: any) {
-        return this.http.post(this.baseUrl, data);
+        return this.http.post(`${this.baseUrl}/`, data);
     }
 
     update(id: number, data: any) {
