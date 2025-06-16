@@ -14,14 +14,16 @@ export class DoctorComponent implements OnInit {
 
   constructor(private doktorService: DoktorService) {}
 
-  ngOnInit(): void {
+ngOnInit(): void {
   this.doktorService.getAll().subscribe((data: any) => {
     this.doctors = data.map((d: any) => ({
       ...d,
+      medicinske_sestre: [d.sestra_ime], 
       showNurses: false
     }));
   });
 }
+
 
 
 toggleNurses(doctor: any) {
