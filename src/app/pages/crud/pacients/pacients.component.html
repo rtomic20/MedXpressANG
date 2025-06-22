@@ -1,0 +1,19 @@
+<h2 class="naslov">Pacijenti</h2>
+<table class="pacients">
+    <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Korisničko ime</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pacijent of pacienti">
+            <td>{{ pacijent.korisnik.ime }}</td>
+            <td>{{ pacijent.korisnik.prezime }}</td>
+            <td>{{ pacijent.korisnik.korisnicko_ime }}</td>
+            <td>{{ pacijent.korisnik.email }}</td>
+        </tr>
+    </tbody>
+</table>

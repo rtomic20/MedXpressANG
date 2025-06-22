@@ -1,68 +1,134 @@
-.ambulanta-container {
-  text-align: center;
-  padding: 2rem;
-  background-color: rgba(34, 158, 215, 0.676);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
 .infirmary-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
+    margin: 30px auto;
+    border-collapse: collapse;
+    width: 85%;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
 
-  th, td {
-    border: 1px solid #ccc;
-    padding: 0.75rem;
+.infirmary-table th,
+.infirmary-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
     text-align: center;
-  }
+    font-size: 15px;
+}
 
-  th {
-    background-color: #2a80b9;
+.infirmary-table thead {
+    background-color: #1976d2;
     color: white;
-  }
-
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-}
-
-
-.notification {
-    text-align: center;
-    margin: 40px 0 20px;
     font-size: 16px;
-    font-weight: 300;
-    color: #2c3e50;
 }
 
-.form-dodaj {
+.infirmary-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.infirmary-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.btn-dodaj {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-dodaj:hover {
+    background-color: #125a9e;
+}
+
+.naslov {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-top: 40px;
-    gap: 12px;
+    z-index: 999;
+}
 
-    input {
-        padding: 10px;
-        width: 240px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 14px;
-        text-align: center;
-    }
+.modal-content {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 
-    button {
-        padding: 10px 20px;
-        background-color: #2ecc71;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        width: 120px;
-    }
+.modal-content h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+}
 
-    button:hover {
-        background-color: #27ae60;
-    }
+.form-dodaj input,
+.form-dodaj select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-buttons button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+}
+
+.modal-buttons button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.modal-buttons button[type="button"] {
+    background-color: #dc3545;
+    color: white;
+}
+
+.modal-buttons button[type="button"]:hover {
+    background-color: #c82333;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

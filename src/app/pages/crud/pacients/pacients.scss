@@ -1,0 +1,38 @@
+.naslov {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+.pacients {
+    margin: 30px auto;
+    border-collapse: collapse;
+    width: 80%;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.pacients th,
+.pacients td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.pacients thead {
+    background-color: #1976d2;
+    color: white;
+}
+
+.pacients tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.pacients tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}

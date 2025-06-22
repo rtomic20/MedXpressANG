@@ -12,8 +12,12 @@ export const routes: Routes = [
                 loadComponent: () => import('./app/pages/crud/doctor/doctor.component').then((m) => m.DoctorComponent)
             },
             {
-                path: 'ambulante', 
+                path: 'ambulante',
                 loadComponent: () => import('./app/pages/crud/infirmaries/infirmaries.component').then((m) => m.InfirmariesAPI)
+            },
+            {
+                path: 'pacients',
+                loadComponent: () => import('./app/pages/crud/pacients/pacients.component').then((m) => m.PacientsAPI)
             }
         ]
     }

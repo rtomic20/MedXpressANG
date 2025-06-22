@@ -12,6 +12,7 @@ import { DoktorService } from '../../../layout/service/doctor.service';
     imports: [CommonModule, FormsModule]
 })
 export class InfirmariesAPI implements OnInit {
+    showModal: boolean = false;
     infirmarie: any[] = [];
     doktors: any[] = [];
 
@@ -46,27 +47,54 @@ export class InfirmariesAPI implements OnInit {
 
         if (selected) {
             this.novaAmbulanta.doktor = selected.doktor_id;
-            this.novaAmbulanta.medicinska_sestra = selected.sestra_id ?? null;
-            this.novaAmbulanta.sestra_ime = selected.sestra_ime ?? '';
-        } 
+
+            if (selected.sestra && selected.sestra.medicinskasestra_id) {
+                this.novaAmbulanta.medicinska_sestra = selected.sestra.medicinskasestra_id;
+                this.novaAmbulanta.sestra_ime = `${selected.sestra.ime} ${selected.sestra.prezime}`;
+            } else {
+                this.novaAmbulanta.medicinska_sestra = null;
+                this.novaAmbulanta.sestra_ime = '';
+            }
+        }
     }
 
     dodajAmbulantu() {
-        this.infirmariesService.create(this.novaAmbulanta).subscribe({
+        const payload: any = {
+            Infirmary_name: this.novaAmbulanta.Infirmary_name,
+            lat: this.novaAmbulanta.lat,
+            long: this.novaAmbulanta.long,
+            doktor: this.novaAmbulanta.doktor,
+            medicinska_sestra: this.novaAmbulanta.medicinska_sestra
+        };
+
+        if (this.novaAmbulanta.medicinska_sestra !== null) {
+            payload.medicinska_sestra = this.novaAmbulanta.medicinska_sestra;
+        }
+
+        console.log('Šaljem na backend:', payload);
+
+        this.infirmariesService.create(payload).subscribe({
             next: () => {
                 this.infirmariesService.getAll().subscribe((data: any) => {
                     this.infirmarie = data;
                 });
+
+                this.novaAmbulanta = {
+                    Infirmary_name: '',
+                    lat: 0,
+                    long: 0,
+                    doktor: null,
+                    medicinska_sestra: null,
+                    sestra_ime: ''
+                };
+
+                this.showModal = false;
+
+                console.log('Ambulanta uspješno spremljena.');
+            },
+            error: (error) => {
+                console.error('Greška prilikom spremanja ambulante:', error);
             }
         });
-
-        this.novaAmbulanta = {
-            Infirmary_name: '',
-            lat: 0,
-            long: 0,
-            doktor: null,
-            medicinska_sestra: null,
-            sestra_ime: ''
-        };
     }
 }

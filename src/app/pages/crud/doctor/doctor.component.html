@@ -1,25 +1,133 @@
 <h2 class="naslov">Doktori i sestre</h2>
 
+<div class="top-buttons">
+    <button (click)="showModal = true">+ Dodaj doktora i sestru</button>
+</div>
+
+<div *ngIf="showModal" class="modal">
+    <div class="modal-content">
+        <h3>Novi doktor i sestra</h3>
+
+        <label>Ime doktora:</label>
+        <input [(ngModel)]="noviDoktor.ime" type="text" placeholder="Ime doktora" />
+
+        <label>Prezime doktora:</label>
+        <input [(ngModel)]="noviDoktor.prezime" type="text" placeholder="Prezime doktora" />
+
+        <label>Email:</label>
+        <input [(ngModel)]="noviDoktor.email" type="email" placeholder="Email doktora" />
+
+        <label>Korisničko ime:</label>
+        <input [(ngModel)]="noviDoktor.korisnicko_ime" type="text" placeholder="Korisničko ime" />
+
+        <label>Lozinka:</label>
+        <input [(ngModel)]="noviDoktor.lozinka" type="password" placeholder="Lozinka" />
+
+        <label>Specijalizacija:</label>
+        <input [(ngModel)]="noviDoktor.specijalizacija" type="text" placeholder="Specijalizacija" />
+
+        <label>Razina specijalizacije:</label>
+        <input [(ngModel)]="noviDoktor.razina_specijalizacije" type="text" placeholder="Razina specijalizacije" />
+
+        <hr />
+
+        <h4>Sestra</h4>
+
+        <label>Ime:</label>
+        <input [(ngModel)]="noviDoktor.sestra.ime" type="text" placeholder="Ime sestre" />
+
+        <label>Prezime:</label>
+        <input [(ngModel)]="noviDoktor.sestra.prezime" type="text" placeholder="Prezime sestre" />
+
+        <label>Email:</label>
+        <input [(ngModel)]="noviDoktor.sestra.email" type="email" placeholder="Email sestre" />
+
+        <label>Korisničko ime:</label>
+        <input [(ngModel)]="noviDoktor.sestra.korisnicko_ime" type="text" placeholder="Korisničko ime sestre" />
+
+        <label>Lozinka:</label>
+        <input [(ngModel)]="noviDoktor.sestra.lozinka" type="password" placeholder="Lozinka sestre" />
+
+        <label>Radno iskustvo:</label>
+        <input [(ngModel)]="noviDoktor.sestra.radno_iskustvo" type="text" placeholder="Radno iskustvo sestre" />
+
+        <label>Specijalizirane tehnike:</label>
+        <input [(ngModel)]="noviDoktor.sestra.specializirane_tehnike" type="text" placeholder="Specijalizirane tehnike sestre" />
+
+        <hr />
+
+        <div class="modal-buttons">
+            <button (click)="addNewDoctor()">Pošalji</button>
+            <button (click)="showModal = false">Odustani</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="showEditModal" class="modal">
+    <div class="modal-content">
+        <h3>Uredi doktora i sestru</h3>
+
+        <label>Ime doktora:</label>
+        <input [(ngModel)]="odabraniDoktorZaEdit.ime" type="text" placeholder="Ime doktora" />
+        
+        <label>Prezime doktora:</label>
+        <input [(ngModel)]="odabraniDoktorZaEdit.prezime" type="text" placeholder="Prezime doktora" />
+
+        <label>Email doktora:</label>
+        <input [(ngModel)]="odabraniDoktorZaEdit.email" type="email" placeholder="Email doktora" />
+
+        <label>Specijalizacija:</label>
+        <input [(ngModel)]="odabraniDoktorZaEdit.specijalizacija" type="text" placeholder="Specijalizacija" />
+
+        <label>Razina specijalizacije:</label>
+        <input [(ngModel)]="odabraniDoktorZaEdit.razina_specijalizacije" type="text" placeholder="Razina specijalizacije" />
+
+        <hr />
+
+        <h4>Sestra</h4>
+
+        <label for="imeSestre">Ime sestre:</label>
+        <input id="imeSestre" [(ngModel)]="odabraniDoktorZaEdit.sestra.ime" type="text" />
+
+        <label for="prezimeSestre">Prezime sestre:</label>
+        <input id="prezimeSestre" [(ngModel)]="odabraniDoktorZaEdit.sestra.prezime" type="text" />
+
+        <label for="radnoIskustvoSestre">Radno iskustvo:</label>
+        <input id="radnoIskustvoSestre" [(ngModel)]="odabraniDoktorZaEdit.sestra.radno_iskustvo" type="text" />
+
+        <label for="tehnikeSestre">Specijalizirane tehnike:</label>
+        <input id="tehnikeSestre" [(ngModel)]="odabraniDoktorZaEdit.sestra.specializirane_tehnike" type="text" />
+
+        <div class="modal-buttons">
+            <button (click)="saveEditedDoctor()">Spremi izmjene</button>
+            <button (click)="showEditModal = false">Odustani</button>
+        </div>
+    </div>
+</div>
+
 <table class="doctor-table">
-  <thead>
-    <tr>
-      <th>Doktor</th>
-      <th>Medicinske sestre</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let doctor of doctors">
-      <td>{{ doctor.doktor_ime }}</td>
-      <td>
-        <button (click)="toggleNurses(doctor)">
-          {{ doctor.showNurses ? 'Sakrij' : 'Prikaži' }}
-        </button>
-        <ul *ngIf="doctor.showNurses" class="nurse-list">
-          <li *ngFor="let sestra of doctor.medicinske_sestre">
-            {{  sestra  }}
-          </li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
+    <thead>
+        <tr>
+            <th>Doktor</th>
+            <th>Medicinska sestra</th>
+            <th>Operacije</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let doctor of doctors">
+            <td>Dr {{ doctor.ime }} {{ doctor.prezime }}</td>
+            <td>
+                <div class="doctor-nurse-cell">
+                    <button (click)="toggleNurses(doctor)" class="btn-toggle">
+                        {{ doctor.showNurses ? 'Sakrij' : 'Prikaži' }}
+                    </button>
+
+                    <div *ngIf="doctor.showNurses && doctor.sestra" class="sestra-info">{{ doctor.sestra.ime }} {{ doctor.sestra.prezime }}</div>
+                </div>
+            </td>
+            <td>
+                <button class="btn-edit" (click)="editDoctor(doctor)">Uredi</button>
+                <button class="btn-delete" (click)="deleteDoctor(doctor)">Obriši</button>
+            </td>
+        </tr>
+    </tbody>
 </table>

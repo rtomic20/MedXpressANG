@@ -6,27 +6,27 @@ import { environment } from '../../environment/environment';
   providedIn: 'root'
 })
 export class DoktorService {
-  private baseUrl = `${environment.apiUrl}/doctors`;
+  private baseUrl = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {}
 
   getAll() {
-    return this.http.get(this.baseUrl);
+    return this.http.get(`${this.baseUrl}/doctors`);
   }
 
   getById(id: number) {
-    return this.http.get(`${this.baseUrl}/${id}`);
+    return this.http.get(`${this.baseUrl}/doctors/${id}`);
   }
 
-  create(data: any) {
-    return this.http.post(this.baseUrl, data);
+  addDoctorWithNurses(data: any) {
+    return this.http.post(`${this.baseUrl}/doktor_sestra_create/`, data);
   }
 
   update(id: number, data: any) {
-    return this.http.put(`${this.baseUrl}/${id}`, data);
+    return this.http.put(`${this.baseUrl}/doctors/${id}`, data);
   }
 
   delete(id: number) {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+    return this.http.delete(`${this.baseUrl}/doctors/${id}`);
   }
 }
