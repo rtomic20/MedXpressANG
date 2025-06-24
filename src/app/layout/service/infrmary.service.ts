@@ -11,7 +11,7 @@ export class AmbulantaService {
     constructor(private http: HttpClient) {}
 
     getAll() {
-        return this.http.get(this.baseUrl);
+        return this.http.get(`${this.baseUrl}/`);
     }
 
     getById(id: number) {
@@ -23,13 +23,14 @@ export class AmbulantaService {
     }
 
     update(id: number, data: any) {
-        return this.http.put(`${this.baseUrl}/${id}`, data);
+         return this.http.put(`${this.baseUrl}/${id}`, data);
     }
 
     delete(id: number) {
         return this.http.delete(`${this.baseUrl}/${id}`);
     }
+
     getDoctorsWithNurses() {
-        return this.http.get(`${this.baseUrl}/doctors/`);
+        return this.http.get(`${environment.apiUrl}/doctors/`);
     }
 }

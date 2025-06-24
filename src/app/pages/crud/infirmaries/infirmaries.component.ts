@@ -13,8 +13,11 @@ import { DoktorService } from '../../../layout/service/doctor.service';
 })
 export class InfirmariesAPI implements OnInit {
     showModal: boolean = false;
+    isEditing: boolean = false;
     infirmarie: any[] = [];
     doktors: any[] = [];
+
+    editAmbulantaId: number | null = null;
 
     novaAmbulanta = {
         Infirmary_name: '',
@@ -31,14 +34,55 @@ export class InfirmariesAPI implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.infirmariesService.getAll().subscribe((data: any) => {
-            this.infirmarie = data;
-        });
+        this.refreshInfirmaries();
 
         this.doctorService.getAll().subscribe((data: any) => {
             this.doktors = data;
             console.log('Dobiveni doktori:', this.doktors);
         });
+    }
+
+    refreshInfirmaries() {
+        this.infirmariesService.getAll().subscribe((data: any) => {
+            this.infirmarie = data;
+            console.log('Ambulante:', this.infirmarie);
+        });
+    }
+
+    openAddModal() {
+        this.isEditing = false;
+        this.editAmbulantaId = null;
+        this.novaAmbulanta = {
+            Infirmary_name: '',
+            lat: 0,
+            long: 0,
+            doktor: null,
+            medicinska_sestra: null,
+            sestra_ime: ''
+        };
+        this.showModal = true;
+    }
+
+    openEditModal(amb: any) {
+        this.isEditing = true;
+        this.editAmbulantaId = amb.id;
+
+        this.novaAmbulanta = {
+            Infirmary_name: amb.Infirmary_name,
+            lat: amb.lat,
+            long: amb.long,
+            doktor: amb.doktor,
+            medicinska_sestra: amb.medicinska_sestra,
+            sestra_ime: amb.sestra_ime || ''
+        };
+
+        this.showModal = true;
+    }
+
+    closeModal() {
+        this.showModal = false;
+        this.isEditing = false;
+        this.editAmbulantaId = null;
     }
 
     onDoctorChange(doktorId: any) {
@@ -58,7 +102,7 @@ export class InfirmariesAPI implements OnInit {
         }
     }
 
-    dodajAmbulantu() {
+    spremiAmbulantu() {
         const payload: any = {
             Infirmary_name: this.novaAmbulanta.Infirmary_name,
             lat: this.novaAmbulanta.lat,
@@ -67,34 +111,46 @@ export class InfirmariesAPI implements OnInit {
             medicinska_sestra: this.novaAmbulanta.medicinska_sestra
         };
 
-        if (this.novaAmbulanta.medicinska_sestra !== null) {
-            payload.medicinska_sestra = this.novaAmbulanta.medicinska_sestra;
+        if (this.isEditing && this.editAmbulantaId !== null) {
+            console.log('PUT na backend za id:', this.editAmbulantaId);
+
+            this.infirmariesService.update(this.editAmbulantaId, payload).subscribe({
+                next: () => {
+                    this.refreshInfirmaries();
+                    this.closeModal();
+                    console.log('Ambulanta ažurirana.');
+                },
+                error: (error) => {
+                    console.error('Greška kod ažuriranja:', error);
+                }
+            });
+        } else {
+            console.log('POST na backend');
+
+            this.infirmariesService.create(payload).subscribe({
+                next: () => {
+                    this.refreshInfirmaries();
+                    this.closeModal();
+                    console.log('Ambulanta spremljena.');
+                },
+                error: (error) => {
+                    console.error('Greška kod spremanja:', error);
+                }
+            });
         }
-
-        console.log('Šaljem na backend:', payload);
-
-        this.infirmariesService.create(payload).subscribe({
-            next: () => {
-                this.infirmariesService.getAll().subscribe((data: any) => {
-                    this.infirmarie = data;
-                });
-
-                this.novaAmbulanta = {
-                    Infirmary_name: '',
-                    lat: 0,
-                    long: 0,
-                    doktor: null,
-                    medicinska_sestra: null,
-                    sestra_ime: ''
-                };
-
-                this.showModal = false;
-
-                console.log('Ambulanta uspješno spremljena.');
-            },
-            error: (error) => {
-                console.error('Greška prilikom spremanja ambulante:', error);
-            }
-        });
+    }
+    onDelete(id: number) {
+        if (confirm('Jeste li sigurni da želite obrisati ovu ambulantu?')) {
+            this.infirmariesService.delete(id).subscribe({
+                next: () => {
+                    alert('Ambulanta je uspješno obrisana.');
+                    this.refreshInfirmaries();
+                },
+                error: (err) => {
+                    console.error('Greška pri brisanju:', err);
+                    alert('Došlo je do greške prilikom brisanja.');
+                }
+            });
+        }
     }
 }

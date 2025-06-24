@@ -1,6 +1,6 @@
 <h2 class="naslov">Popis ambulanti</h2>
 
-<button (click)="showModal = true" class="btn-dodaj">+ Dodaj ambulantu</button>
+<button (click)="openAddModal()" class="btn-dodaj">+ Dodaj ambulantu</button>
 
 <table *ngIf="infirmarie.length > 0; else noData" class="infirmary-table">
     <thead>
@@ -10,6 +10,7 @@
             <th>Medicinska sestra</th>
             <th>Latitude</th>
             <th>Longitude</th>
+            <th>Akcije</th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,10 @@
             <td>{{ amb.sestra_ime }}</td>
             <td>{{ amb.lat }}</td>
             <td>{{ amb.long }}</td>
+            <td>
+                <button (click)="openEditModal(amb)" class="btn-action btn-edit">Uredi</button>
+                <button (click)="onDelete(amb.id)" class="btn-action btn-delete">Obriši</button>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -29,9 +34,10 @@
 
 <div class="modal-overlay" *ngIf="showModal">
     <div class="modal-content">
-        <h3>Dodaj novu ambulantu</h3>
+        <h3 *ngIf="!isEditing">Dodaj novu ambulantu</h3>
+        <h3 *ngIf="isEditing">Uredi ambulantu</h3>
 
-        <form (ngSubmit)="dodajAmbulantu()" #ambulantaForm="ngForm" class="form-dodaj">
+        <form (ngSubmit)="spremiAmbulantu()" #ambulantaForm="ngForm" class="form-dodaj">
 
             <input type="text"
                    name="Infirmary_name"
@@ -63,13 +69,13 @@
                     required>
                 <option value="" disabled selected>-- Odaberite doktora --</option>
                 <option *ngFor="let doc of doktors" [value]="doc.doktor_id">
-                    {{ doc.doktor_ime }}
+                    {{ doc.ime }} {{ doc.prezime }}
                 </option>
             </select>
 
             <div class="modal-buttons">
-                <button type="submit">Spremi</button>
-                <button type="button" (click)="showModal = false">Odustani</button>
+                <button type="submit">{{ isEditing ? 'Spremi promjene' : 'Spremi' }}</button>
+                <button type="button" (click)="closeModal()">Odustani</button>
             </div>
 
         </form>
